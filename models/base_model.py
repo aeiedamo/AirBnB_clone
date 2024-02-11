@@ -3,6 +3,7 @@
 from datetime import datetime
 from uuid import uuid4
 import unittest
+import models
 
 
 class BaseModel:
@@ -10,7 +11,7 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """constructor for BaseModel objects"""
-        if kwargs:
+        if len(kwargs) > 0:
             self.id = kwargs["id"]
             self.created_at = datetime.fromisoformat(kwargs["created_at"])
             self.updated_at = datetime.fromisoformat(kwargs["updated_at"])
@@ -18,6 +19,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = self.created_at
+            models.storage.new(self)
 
     def __str__(self):
         """method to represent the class in a string"""
@@ -26,6 +28,7 @@ class BaseModel:
     def save(self):
         """method to update the public instance attribute updated_at"""
         self.updated_at = datetime.now()
+        models.storage.save()
 
     def to_dict(self):
         """method to return a dictionary representation of a class"""
@@ -36,4 +39,4 @@ class BaseModel:
 
 
 if __name__ == "__main__":
-    unittest.TestCase()
+    unittest.main()
