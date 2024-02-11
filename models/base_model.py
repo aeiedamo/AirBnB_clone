@@ -1,42 +1,40 @@
 #!/usr/bin/python3
-"""This file is created to create a BaseModel class"""
-from datetime import datetime
-from uuid import uuid4
-import unittest
+"""Defines the BaseModel class."""
 import models
+from uuid import uuid4
+import datetime
 
 
 class BaseModel:
-    """this section defines a BaseModel class"""
+    """Represents the BaseModel of the HBnB project."""
 
     def __init__(self, *args, **kwargs):
-        """constructor for BaseModel objects"""
-        if len(kwargs) > 0:
-            self.id = kwargs["id"]
-            self.created_at = datetime.fromisoformat(kwargs["created_at"])
-            self.updated_at = datetime.fromisoformat(kwargs["updated_at"])
+        """constructs a new BaseModel object"""
+        self.id = str(uuid4())
+        self.created_at = datetime.datetime.now()
+        self.updated_at = datetime.datetime.now()
+        if len(kwargs) != 0:
+            for k, v in kwargs.items():
+                if k == "created_at" or k == "updated_at":
+                    self.__dict__[k] = datetime.datetime.fromisoformat(v)
+                else:
+                    self.__dict__[k] = v
         else:
-            self.id = str(uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = self.created_at
             models.storage.new(self)
 
-    def __str__(self):
-        """method to represent the class in a string"""
-        return "[{}] ({}) {}".format(type(self).__name__, self.id, self.__dict__)
-
     def save(self):
-        """method to update the public instance attribute updated_at"""
-        self.updated_at = datetime.now()
+        """Update updated_at with the current datetime."""
+        self.updated_at = datetime.datetime.now()
         models.storage.save()
 
     def to_dict(self):
-        """method to return a dictionary representation of a class"""
-        self.__dict__["created_at"] = (self.created_at).isoformat()
-        self.__dict__["updated_at"] = (self.updated_at).isoformat()
-        self.__dict__["__class__"] = type(self).__name__
+        """Represents object as dictionary"""
+        self.__dict__["created_at"] = self.created_at.isoformat()
+        self.__dict__["updated_at"] = self.updated_at.isoformat()
+        self.__dict__["__class__"] = self.__class__.__name__
         return self.__dict__
 
-
-if __name__ == "__main__":
-    unittest.main()
+    def __str__(self):
+        """Represents class as a string"""
+        clname = self.__class__.__name__
+        return "[{}] ({}) {}".format(clname, self.id, self.__dict__)
