@@ -1,14 +1,24 @@
 #!/usr/bin/python3
 """This files runs a console program"""
 import cmd
-import sys
 import json
 import re
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.amenity import Amenity
+from models.state import State
+from models.review import Review
+from models.city import City
 
-classes = {"BaseModel": BaseModel, "User": User}
+classes = {
+    "BaseModel": BaseModel,
+    "User": User,
+    "Amenity": Amenity,
+    "State": State,
+    "Review": Review,
+    "City": City,
+}
 
 
 class HBNBCommand(cmd.Cmd):
