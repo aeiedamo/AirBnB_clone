@@ -23,6 +23,7 @@ class HBNBCommand(cmd.Cmd):
     def help_EOF(self):
         """to help when sending an EOF File"""
         print("EOF signal to exit the program")
+        print()
 
     def do_quit(self, line):
         """Quit command to exit the program"""
@@ -31,6 +32,7 @@ class HBNBCommand(cmd.Cmd):
     def help_quit(self):
         """to help when entering quit"""
         print("Quit command to exit the program")
+        print()
 
     def postloop(self):
         """after the loop ends"""
