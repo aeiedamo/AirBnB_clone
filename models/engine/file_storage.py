@@ -3,6 +3,7 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
 
 
 class FileStorage:
@@ -33,7 +34,7 @@ class FileStorage:
     def reload(self):
         if not os.path.exists(self.__file_path):
             return
-        classes = {"BaseModel": BaseModel}
+        classes = {"BaseModel": BaseModel, "User": User}
         with open(self.__file_path, "r") as f:
             to_load = json.load(f)
             self.__objects = {
