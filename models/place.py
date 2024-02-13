@@ -3,8 +3,9 @@
 from models.base_model import BaseModel
 
 
-def Place(BaseModel):
+class Place(BaseModel):
     """this creates a Place class"""
+
     city_id = ""
     user_id = ""
     name = ""

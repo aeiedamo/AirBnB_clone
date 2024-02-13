@@ -10,6 +10,7 @@ from models.amenity import Amenity
 from models.state import State
 from models.review import Review
 from models.city import City
+from models.place import Place
 
 classes = {
     "BaseModel": BaseModel,
@@ -18,6 +19,7 @@ classes = {
     "State": State,
     "Review": Review,
     "City": City,
+    "Place": Place,
 }
 
 
